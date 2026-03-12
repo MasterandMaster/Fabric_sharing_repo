@@ -1,0 +1,618 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "customer",
+        "type": "Copy",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "Bronze_Layer",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "4d148c35-b745-498d-a028-d30a45dc644a",
+                    "artifactId": "076549b1-8219-4d46-9868-734759666ec3",
+                    "rootFolder": "Tables"
+                  }
+                }
+              },
+              "type": "LakehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dimcustomer"
+              }
+            }
+          },
+          "sink": {
+            "type": "CommonDataServiceForAppsSink",
+            "writeBatchSize": 10,
+            "writeBehavior": "upsert",
+            "ignoreNullValues": false,
+            "alternateKeyName": "cr31c_customer_key",
+            "bypassPowerAutomateFlows": false,
+            "datasetSettings": {
+              "annotations": [],
+              "type": "CommonDataServiceForAppsEntity",
+              "schema": [],
+              "typeProperties": {
+                "entityName": "cr31c_customer"
+              },
+              "externalReferences": {
+                "connection": "6bcf9b12-3acc-4ef6-aa29-e7bf6e0a62d2"
+              }
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "customer_id",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_customerid1",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "customer_name",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_customername",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "customer_segment",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_customersegment",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "region",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_region",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "country",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_country",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "state",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_state",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "city",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_city",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "postal_code",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_postalcode",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "contact_email",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_contactemail",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "customer_key",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_customerkey",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "start_column",
+                  "type": "DateTime",
+                  "physicalType": "timestamp"
+                },
+                "sink": {
+                  "name": "cr31c_startdate",
+                  "type": "DateTime"
+                }
+              },
+              {
+                "source": {
+                  "name": "end_date",
+                  "type": "DateTime",
+                  "physicalType": "timestamp"
+                },
+                "sink": {
+                  "name": "cr31c_enddate",
+                  "type": "DateTime"
+                }
+              },
+              {
+                "source": {
+                  "name": "Iscurrent",
+                  "type": "Int32",
+                  "physicalType": "integer"
+                },
+                "sink": {
+                  "name": "cr31c_is_current",
+                  "type": "Int32"
+                }
+              },
+              {
+                "source": {
+                  "name": "hash",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_recordhash",
+                  "type": "String"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "product",
+        "type": "Copy",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "LakehouseTableSource",
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "Bronze_Layer",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "4d148c35-b745-498d-a028-d30a45dc644a",
+                    "artifactId": "076549b1-8219-4d46-9868-734759666ec3",
+                    "rootFolder": "Tables"
+                  }
+                }
+              },
+              "type": "LakehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dimproduct"
+              }
+            }
+          },
+          "sink": {
+            "type": "CommonDataServiceForAppsSink",
+            "writeBatchSize": 10,
+            "writeBehavior": "upsert",
+            "ignoreNullValues": false,
+            "alternateKeyName": "cr31c_product_key",
+            "bypassPowerAutomateFlows": false,
+            "datasetSettings": {
+              "annotations": [],
+              "type": "CommonDataServiceForAppsEntity",
+              "schema": [],
+              "typeProperties": {
+                "entityName": "cr31c_product"
+              },
+              "externalReferences": {
+                "connection": "6bcf9b12-3acc-4ef6-aa29-e7bf6e0a62d2"
+              }
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "product_name",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_productname",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "category",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_category",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "sub_category",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_subcategory",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "product_id",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_productid1",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "color",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_color",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "unit_price",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_unitprice",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "currency",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_currency",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "tax_rate",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_taxrate",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "start_column",
+                  "type": "DateTime",
+                  "physicalType": "timestamp"
+                },
+                "sink": {
+                  "name": "cr31c_startdate",
+                  "type": "DateTime"
+                }
+              },
+              {
+                "source": {
+                  "name": "end_date",
+                  "type": "DateTime",
+                  "physicalType": "timestamp"
+                },
+                "sink": {
+                  "name": "cr31c_enddate",
+                  "type": "DateTime"
+                }
+              },
+              {
+                "source": {
+                  "name": "Iscurrent",
+                  "type": "Int32",
+                  "physicalType": "integer"
+                },
+                "sink": {
+                  "name": "cr31c_iscurrent",
+                  "type": "Int32"
+                }
+              },
+              {
+                "source": {
+                  "name": "hash",
+                  "type": "String",
+                  "physicalType": "string"
+                },
+                "sink": {
+                  "name": "cr31c_hash",
+                  "type": "String"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "Order",
+        "type": "Copy",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "SqlServerSource",
+            "queryTimeout": "02:00:00",
+            "partitionOption": "None",
+            "datasetSettings": {
+              "annotations": [],
+              "type": "SqlServerTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "factorder",
+                "database": "Bronze_Layer"
+              },
+              "externalReferences": {
+                "connection": "cdf1fca4-fe8e-4e9e-b0bb-beb86ec4ebaa"
+              }
+            }
+          },
+          "sink": {
+            "type": "CommonDataServiceForAppsSink",
+            "writeBatchSize": 10,
+            "writeBehavior": "upsert",
+            "datasetSettings": {
+              "annotations": [],
+              "type": "CommonDataServiceForAppsEntity",
+              "schema": [],
+              "typeProperties": {
+                "entityName": "cr31c_f_order"
+              },
+              "externalReferences": {
+                "connection": "6bcf9b12-3acc-4ef6-aa29-e7bf6e0a62d2"
+              }
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "Lookup1",
+        "type": "Lookup",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "SqlServerSource",
+            "sqlReaderQuery": "SELECT\n lakehouse_table,\n dataverse_table,\n destination_key,\n CONCAT(\n  '{\"type\":\"TabularTranslator\",\"mappings\":[',\n  STRING_AGG(\n   CONCAT(\n    '{\"source\":{\"name\":\"',source_column,'\"},\"sink\":{\"name\":\"',destination_column,'\"}}'\n   ), ','\n  ),\n  ']}'\n ) AS mapping_json\nFROM mapping_info\nWHERE is_active = 1\nGROUP BY lakehouse_table, dataverse_table, destination_key",
+            "queryTimeout": "02:00:00",
+            "partitionOption": "None"
+          },
+          "firstRowOnly": false,
+          "datasetSettings": {
+            "annotations": [],
+            "type": "SqlServerTable",
+            "schema": [],
+            "typeProperties": {
+              "database": "Bronze_Layer"
+            },
+            "externalReferences": {
+              "connection": "cdf1fca4-fe8e-4e9e-b0bb-beb86ec4ebaa"
+            }
+          }
+        }
+      },
+      {
+        "name": "ForEach1",
+        "type": "ForEach",
+        "dependsOn": [
+          {
+            "activity": "Lookup1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "items": {
+            "value": "@activity('Lookup1').output.value",
+            "type": "Expression"
+          },
+          "isSequential": true,
+          "activities": [
+            {
+              "name": "Copy data1",
+              "type": "Copy",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "source": {
+                  "type": "SqlServerSource",
+                  "queryTimeout": "02:00:00",
+                  "partitionOption": "None",
+                  "datasetSettings": {
+                    "annotations": [],
+                    "type": "SqlServerTable",
+                    "schema": [],
+                    "typeProperties": {
+                      "schema": "dbo",
+                      "table": {
+                        "value": "@item().lakehouse_table",
+                        "type": "Expression"
+                      },
+                      "database": "Bronze_Layer"
+                    },
+                    "externalReferences": {
+                      "connection": "cdf1fca4-fe8e-4e9e-b0bb-beb86ec4ebaa"
+                    }
+                  }
+                },
+                "sink": {
+                  "type": "CommonDataServiceForAppsSink",
+                  "writeBatchSize": 10,
+                  "writeBehavior": "upsert",
+                  "alternateKeyName": {
+                    "value": "@item().destination_key",
+                    "type": "Expression"
+                  },
+                  "datasetSettings": {
+                    "annotations": [],
+                    "type": "CommonDataServiceForAppsEntity",
+                    "schema": [],
+                    "typeProperties": {
+                      "entityName": {
+                        "value": "@item().dataverse_table",
+                        "type": "Expression"
+                      }
+                    },
+                    "externalReferences": {
+                      "connection": "6bcf9b12-3acc-4ef6-aa29-e7bf6e0a62d2"
+                    }
+                  }
+                },
+                "enableStaging": false,
+                "translator": {
+                  "value": "@json(item().mapping_json)",
+                  "type": "Expression"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "parameters": {
+      "table_name": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "mapping_json": {
+        "type": "String",
+        "defaultValue": "{  \"type\": \"TabularTranslator\",  \"mappings\": [   {\"source\":{\"name\":\"cr31c_customerkey\"},\"sink\":{\"name\":\"cr31c_customerkey\"}},   {\"source\":{\"name\":\"customer_name\"},\"sink\":{\"name\":\"cr31c_customername\"}}  ] }"
+      }
+    }
+  }
+}
