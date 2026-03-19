@@ -489,6 +489,8 @@
       {
         "name": "Lookup1",
         "type": "Lookup",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [],
         "policy": {
           "timeout": "0.12:00:00",
@@ -510,6 +512,8 @@
             "type": "SqlServerTable",
             "schema": [],
             "typeProperties": {
+              "schema": "dbo",
+              "table": "mapping_info",
               "database": "Bronze_Layer"
             },
             "externalReferences": {
@@ -521,6 +525,8 @@
       {
         "name": "ForEach1",
         "type": "ForEach",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Lookup1",
@@ -539,6 +545,8 @@
             {
               "name": "Copy data1",
               "type": "Copy",
+              "state": "Inactive",
+              "onInactiveMarkAs": "Succeeded",
               "dependsOn": [],
               "policy": {
                 "timeout": "0.12:00:00",
@@ -600,6 +608,596 @@
               }
             }
           ]
+        }
+      },
+      {
+        "name": "Copy data2",
+        "type": "Copy",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "SqlServerSource",
+            "queryTimeout": "02:00:00",
+            "partitionOption": "None",
+            "datasetSettings": {
+              "annotations": [],
+              "type": "SqlServerTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "factorder",
+                "database": "Bronze_Layer"
+              },
+              "externalReferences": {
+                "connection": "cdf1fca4-fe8e-4e9e-b0bb-beb86ec4ebaa"
+              }
+            }
+          },
+          "sink": {
+            "type": "CommonDataServiceForAppsSink",
+            "writeBatchSize": 10,
+            "writeBehavior": "upsert",
+            "ignoreNullValues": false,
+            "alternateKeyName": "cr31c_order_key",
+            "bypassPowerAutomateFlows": false,
+            "datasetSettings": {
+              "annotations": [],
+              "type": "CommonDataServiceForAppsEntity",
+              "schema": [],
+              "typeProperties": {
+                "entityName": "cr31c_f_order"
+              },
+              "externalReferences": {
+                "connection": "6bcf9b12-3acc-4ef6-aa29-e7bf6e0a62d2"
+              }
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "order_id",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_orderid1",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "order_date",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_orderdate",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "requested_ship_date",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_requestedshipdate",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "promised_ship_date",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_promisedshipdate",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "days_to_ship",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_daystoship",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "lead_time_days",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_leadtimedays",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "sla_days",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_sladays",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "order_status",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_orderstatus",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "priority",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_priority",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "order_category",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_ordercategory",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "customer_id",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_customerid",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "customer_name",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_customername",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "customer_segment",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_customersegment",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "region",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_region",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "country",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_country",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "state",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_state",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "city",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_city",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "postal_code",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_postalcode",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "contact_email",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_contactemail",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "contact_phone",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_contactphone",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "payment_terms",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_paymentterms",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "payment_status",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_paymentstatus",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "sku",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_sku",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "product_name",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_productname",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "sku_color",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_skucolor",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "category",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_category",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "sub_category",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_subcategory",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "uom",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_uom",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "qty",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_quantity",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "unit_price",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_unitprice",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "currency",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_currency",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "tax_rate",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_taxrate",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "line_amount",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_lineamount",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "tax_amount",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_taxamount",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "total_amount",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_totalamount",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "fulfillment_channel",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_fulfillmentchannel",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "source_system",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_sourcesystem",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "source_system_normalized",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_normalizedsourcesystem",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "ingest_ts",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_ingesttimestamp",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "is_valid",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_isvalid",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "data_quality_notes",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_dataqualitynotes",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "created_by",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_createdby",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "last_updated_ts",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_lastupdatedtimestamp",
+                  "type": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "product_id",
+                  "type": "String",
+                  "physicalType": "nvarchar",
+                  "length": "MAX"
+                },
+                "sink": {
+                  "name": "cr31c_productid",
+                  "type": "String"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
         }
       }
     ],

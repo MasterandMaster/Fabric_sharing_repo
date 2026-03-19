@@ -429,8 +429,8 @@ df25.write.mode('overwrite').option("overwriteSchema", "true").saveAsTable('dimc
 
 # MAGIC %%sql
 # MAGIC INSERT INTO mapping_info VALUES
-# MAGIC ('dimcustomer','cr31c_customer','cr31c_customerkey','cr31c_customerkey','cr31c_customer_key',1,1),
-# MAGIC ('dimcustomer','cr31c_customer','customer_name','cr31c_customername','cr31c_customer_key',0,1)
+# MAGIC --('dimcustomer','cr31c_customer','cr31c_customerkey','cr31c_customerkey','cr31c_customer_key',1,1),
+# MAGIC --('dimcustomer','cr31c_customer','customer_name','cr31c_customername','cr31c_customer_key',0,1)
 
 # METADATA ********************
 
@@ -505,6 +505,148 @@ df27.write.mode('overwrite').saveAsTable('dimcustomer')
 # MAGIC ('dimproduct','cr31c_product','end_date','cr31c_enddate','cr31c_product_key',0,1),
 # MAGIC ('dimproduct','cr31c_product','Iscurrent','cr31c_iscurrent','cr31c_product_key',0,1),
 # MAGIC ('dimproduct','cr31c_product','hash','cr31c_hash','cr31c_product_key',0,1);
+
+# METADATA ********************
+
+# META {
+# META   "language": "sparksql",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df = spark.table("factorder")
+
+column_count = len(df.columns)
+
+print(column_count)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# MAGIC %%sql
+# MAGIC INSERT INTO mapping_info VALUES
+# MAGIC ('factorder',' cr31c_f_order','order_id','cr31c_orderid','cr31c_order_key',1,1),
+# MAGIC ('factorder','cr31c_f_order','order_date','cr31c_orderdate','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','requested_ship_date','cr31c_requestedshipdate','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','promised_ship_date','cr31c_promisedshipdate','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','days_to_ship','cr31c_daystoship','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','lead_time_days','cr31c_leadtimedays','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','sla_days','cr31c_sladays','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','order_status','cr31c_orderstatus','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','priority','cr31c_priority','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','order_category','cr31c_ordercategory','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Customer Details
+# MAGIC ('factorder','cr31c_f_order','customer_id','cr31c_customerid','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','customer_name','cr31c_customername','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','customer_segment','cr31c_customersegment','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Geography
+# MAGIC ('factorder','cr31c_f_order','region','cr31c_region','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','country','cr31c_country','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','state','cr31c_state','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','city','cr31c_city','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','postal_code','cr31c_postalcode','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Contact
+# MAGIC ('factorder','cr31c_f_order','contact_email','cr31c_contactemail','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','contact_phone','cr31c_contactphone','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Payment
+# MAGIC ('factorder','cr31c_f_order','payment_terms','cr31c_paymentterms','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','payment_status','cr31c_paymentstatus','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Product Details
+# MAGIC ('factorder','cr31c_f_order','sku','cr31c_sku','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','product_name','cr31c_productname','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','sku_color','cr31c_skucolor','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','category','cr31c_category','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','sub_category','cr31c_subcategory','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Quantity & Pricing
+# MAGIC ('factorder','cr31c_f_order','uom','cr31c_uom','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','qty','cr31c_quantity','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','unit_price','cr31c_unitprice','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','currency','cr31c_currency','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Amounts
+# MAGIC ('factorder','cr31c_f_order','line_amount','cr31c_lineamount','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','tax_rate','cr31c_taxrate','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','tax_amount','cr31c_taxamount','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','total_amount','cr31c_totalamount','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Logistics
+# MAGIC ('factorder','cr31c_f_order','fulfillment_channel','cr31c_fulfillmentchannel','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Source Tracking
+# MAGIC ('factorder','cr31c_f_order','source_system','cr31c_sourcesystem','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','source_system_normalized','cr31c_normalizedsourcesystem','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Audit Columns
+# MAGIC ('factorder','cr31c_f_order','ingest_ts','cr31c_ingesttimestamp','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','is_valid','cr31c_isvalid','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','data_quality_notes','cr31c_dataqualitynotes','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','created_by','cr31c_createdby','cr31c_order_key',0,1),
+# MAGIC ('factorder','cr31c_f_order','last_updated_ts','cr31c_lastupdatedtimestamp','cr31c_order_key',0,1),
+# MAGIC 
+# MAGIC -- Product ID
+# MAGIC ('factorder','cr31c_f_order','product_id','cr31c_productid','cr31c_order_key',0,1);
+
+# METADATA ********************
+
+# META {
+# META   "language": "sparksql",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+from pyspark.sql.window import Window
+from pyspark.sql.functions import row_number, col
+
+df30 = spark.read.table('factorder')
+
+window_spec = Window.partitionBy("order_id") \
+                    .orderBy(col("order_id").desc())
+
+df_with_rn = df30.withColumn(
+    "rn",
+    row_number().over(window_spec)
+)
+
+display(df_with_rn)
+
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+df27 = spark.read.table('factorder')
+df27.printSchema()
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
+# MAGIC %%sql
+# MAGIC select * from mapping_info where lakehouse_table = 'factorder'
 
 # METADATA ********************
 
